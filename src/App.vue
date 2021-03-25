@@ -5,47 +5,57 @@
         <h3>STEP{{ pageNumber }}</h3>
         <h2>{{ title }}</h2>
       </div>
-      <router-view
-        @title="title = $event"
-        @nextPage="nextPage = $event"
-        @priviousPage="priviousPage = $event"
-      ></router-view>
+      <router-view></router-view>
     </div>
     <div class="btn-section">
       <router-link
         :to="priviousPage"
-        @click.native="minusPageNum"
         v-if="!(pageNumber === 1)"
         class="privious-btn"
         >&lt; 前へ戻る</router-link
       >
-      <router-link :to="nextPage" @click.native="addPageNum" class="next-btn"
+      <router-link :to="nextPage" v-if="!(pageNumber === 4)" class="next-btn"
         >次へ進む &gt;</router-link
       >
+      <a href="#" v-if="pageNumber === 4" class="submit-btn">送信 &gt;</a>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      pageNumber: 1,
-      title: '',
-      priviousPage: '',
-      nextPage: '',
-    };
-  },
-  methods: {
-    minusPageNum() {
-      if (this.pageNumber > 1) {
-        this.pageNumber--;
-      }
+  computed: {
+    pageNumber: {
+      get() {
+        return this.$store.state.appData.pageNumber;
+      },
+      set(value) {
+        this.$store.commit('pageNumber', value);
+      },
     },
-    addPageNum() {
-      if (this.pageNumber < 3) {
-        this.pageNumber++;
-      }
+    title: {
+      get() {
+        return this.$store.state.appData.title;
+      },
+      set(value) {
+        this.$store.commit('title', value);
+      },
+    },
+    priviousPage: {
+      get() {
+        return this.$store.state.appData.priviousPage;
+      },
+      set(value) {
+        this.$store.commit('priviousPage', value);
+      },
+    },
+    nextPage: {
+      get() {
+        return this.$store.state.appData.nextPage;
+      },
+      set(value) {
+        this.$store.commit('nextPage', value);
+      },
     },
   },
 };
@@ -119,12 +129,14 @@ select {
 }
 
 .privious-btn,
-.next-btn {
+.next-btn,
+.submit-btn {
   border: 1px solid #2cdcb8;
   border-radius: 3px;
   background-color: #2cdcb8;
   color: white;
   text-decoration: none;
   padding: 7px 30px;
+  cursor: pointer;
 }
 </style>

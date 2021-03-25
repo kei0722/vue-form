@@ -1,36 +1,33 @@
 <template>
   <div>
     <div class="form-section">
-      <div class="question-title">
-        <p>-性別-</p>
-      </div>
-      <div class="question-answer">
-        <input type="radio" id="male" value="male" v-model="formData1.gender" />
-        <label for="male">男性</label>
-        <input
-          type="radio"
-          id="female"
-          value="female"
-          v-model="formData1.gender"
-        />
-        <label for="female">女性</label>
+      <div class="question">
+        <div class="question-title">
+          <p>{{ genderChoice }}</p>
+        </div>
+        <div class="question-answer">
+          <input type="radio" id="male" value="男性" v-model="gender" />
+          <label for="male">男性</label>
+          <input type="radio" id="female" value="女性" v-model="gender" />
+          <label for="female">女性</label>
+        </div>
       </div>
 
-      <div class="question-title">
-        <p>-生年月日-</p>
-      </div>
-      <div class="question-answer">
-        <select v-model="formData1.year" @change="getDays">
-          <option v-for="n in 40" :key="n">{{ n + 1980 }}</option> </select
-        >年
-        <select v-model="formData1.month" @change="getDays">
-          <option v-for="n in 12" :key="n">{{ n }}</option> </select
-        >月
-        <select v-model="formData1.date">
-          <option v-for="n in formData1.maxDate" :key="n">{{
-            n
-          }}</option> </select
-        >日
+      <div class="question">
+        <div class="question-title">
+          <p>{{ birthdayChoice }}</p>
+        </div>
+        <div class="question-answer">
+          <select v-model="year" @change="getMaxDate">
+            <option v-for="n in 40" :key="n">{{ n + 1980 }}</option> </select
+          >年
+          <select v-model="month" @change="getMaxDate">
+            <option v-for="n in 12" :key="n">{{ n }}</option> </select
+          >月
+          <select v-model="date">
+            <option v-for="n in maxDate" :key="n">{{ n }}</option> </select
+          >日
+        </div>
       </div>
     </div>
   </div>
@@ -40,37 +37,67 @@
 export default {
   data() {
     return {
+      pageNumber: 1,
       title: 'お客様の情報を入力してください',
       nextPage: '/user-questions',
-      formData1: {
-        gender: '',
-        year: 1981,
-        month: 1,
-        date: 1,
-        maxDate: '',
-      },
+      maxDate: 31,
     };
+  },
+  computed: {
+    genderChoice() {
+      return this.$store.getters.getGenderChoice;
+    },
+    birthdayChoice() {
+      return this.$store.getters.getBirthdayChoice;
+    },
+    gender: {
+      get() {
+        return this.$store.state.userInformation.formData.gender;
+      },
+      set(value) {
+        this.$store.commit('gender', value);
+      },
+    },
+    year: {
+      get() {
+        return this.$store.state.userInformation.formData.year;
+      },
+      set(value) {
+        this.$store.commit('year', value);
+      },
+    },
+    month: {
+      get() {
+        return this.$store.state.userInformation.formData.month;
+      },
+      set(value) {
+        this.$store.commit('month', value);
+      },
+    },
+    date: {
+      get() {
+        return this.$store.state.userInformation.formData.date;
+      },
+      set(value) {
+        this.$store.commit('date', value);
+      },
+    },
   },
 
   created() {
-    this.getDays();
-    this.$emit('title', this.title);
-    this.$emit('nextPage', this.nextPage);
+    this.$store.commit('pageNumber', this.pageNumber);
+    this.$store.commit('title', this.title);
+    this.$store.commit('nextPage', this.nextPage);
+    this.getMaxDate();
   },
 
   methods: {
-    getDays() {
-      this.formData1.maxDate = new Date(
-        this.formData1.year,
-        this.formData1.month,
+    getMaxDate() {
+      this.maxDate = new Date(
+        this.$store.state.userInformation.formData.year,
+        this.$store.state.userInformation.formData.month,
         0
       ).getDate();
-    },
-    getConsole() {
-      console.log('コンソールに出力');
-    },
-    submitOya() {
-      this.$emit('close');
     },
   },
 };
