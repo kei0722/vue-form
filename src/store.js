@@ -12,54 +12,36 @@ export default new Vuex.Store({
       nextPage: '',
     },
     userInformation: {
-      genderChoice: '-性別-',
-      birthdayChoice: '-生年月日-',
-      formData: {
-        gender: '',
-        year: 1981,
-        month: 1,
-        date: 1,
-      },
+      gender: '',
+      year: 1981,
+      month: 1,
+      date: 1,
     },
     userQuestions: {
-      question1: '-現在、生命保険に加入されていますか？-',
-      question2:
-        '-現在入院中ですか？または、最近3ヶ月以内に医師の診断・審査の結果、入院・手術を勧められたことはありますか？-',
-      question3:
-        '-過去5年以内に、病気やけがで、手術を受けたことまたは継続して7日以上の入院をしたことがありますか？-',
-      formData: {
-        question1Choice: '',
-        question2Choice: '',
-        question3Choice: '',
-      },
+      question1Choice: '',
+      question2Choice: '',
+      question3Choice: '',
     },
     userTextarea: {
-      textTitle: 'ご相談内容',
-      formData: {
-        text: '',
-      },
+      text: '',
     },
   },
 
   getters: {
-    getGenderChoice: (state) => state.userInformation.genderChoice,
-    getBirthdayChoice: (state) => state.userInformation.birthdayChoice,
-
-    getQuestion1: (state) => state.userQuestions.question1,
-    getQuestion2: (state) => state.userQuestions.question2,
-    getQuestion3: (state) => state.userQuestions.question3,
-
-    getTextTitle: (state) => state.userTextarea.textTitle,
-
-    getGender: (state) => state.userInformation.formData.gender,
+    getPageNumber: (state) => state.appData.pageNumber,
+    getTitle: (state) => state.appData.title,
+    getPriviousPage: (state) => state.appData.priviousPage,
+    getNextPage: (state) => state.appData.nextPage,
+    getGender: (state) => state.userInformation.gender,
+    getYear: (state) => state.userInformation.year,
+    getMonth: (state) => state.userInformation.month,
+    getDate: (state) => state.userInformation.date,
     getFullBirthday: (state) =>
-      `${state.userInformation.formData.year}年${state.userInformation.formData.month}月${state.userInformation.formData.date}日`,
-
-    getQuestion1Chosen: (state) => state.userQuestions.formData.question1Choice,
-    getQuestion2Chosen: (state) => state.userQuestions.formData.question2Choice,
-    getQuestion3Chosen: (state) => state.userQuestions.formData.question3Choice,
-
-    getTextContent: (state) => state.userTextarea.formData.text,
+      `${state.userInformation.year}年${state.userInformation.month}月${state.userInformation.date}日`,
+    getQuestion1Choice: (state) => state.userQuestions.question1Choice,
+    getQuestion2Choice: (state) => state.userQuestions.question2Choice,
+    getQuestion3Choice: (state) => state.userQuestions.question3Choice,
+    getText: (state) => state.userTextarea.text,
   },
 
   mutations: {
@@ -76,28 +58,28 @@ export default new Vuex.Store({
       state.appData.nextPage = value;
     },
     gender(state, value) {
-      state.userInformation.formData.gender = value;
+      state.userInformation.gender = value;
     },
     year(state, value) {
-      state.userInformation.formData.year = value;
+      state.userInformation.year = value;
     },
     month(state, value) {
-      state.userInformation.formData.month = value;
+      state.userInformation.month = value;
     },
     date(state, value) {
-      state.userInformation.formData.date = value;
+      state.userInformation.date = value;
     },
     question1Choice(state, value) {
-      state.userQuestions.formData.question1Choice = value;
+      state.userQuestions.question1Choice = value;
     },
     question2Choice(state, value) {
-      state.userQuestions.formData.question2Choice = value;
+      state.userQuestions.question2Choice = value;
     },
     question3Choice(state, value) {
-      state.userQuestions.formData.question3Choice = value;
+      state.userQuestions.question3Choice = value;
     },
     text(state, value) {
-      state.userTextarea.formData.text = value;
+      state.userTextarea.text = value;
     },
   },
 });

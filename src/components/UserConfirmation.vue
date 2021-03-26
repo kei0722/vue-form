@@ -3,50 +3,54 @@
     <div class="form-section">
       <div class="question">
         <div class="question-title">
-          <p>{{ genderChoice }}</p>
+          <p>-性別-</p>
         </div>
         <div class="question-answer">
-          <p>{{ getGender }}</p>
+          <p>{{ gender }}</p>
         </div>
       </div>
       <div class="question">
         <div class="question-title">
-          <p>{{ birthdayChoice }}</p>
+          <p>-生年月日-</p>
         </div>
         <div class="question-answer">
-          <p>{{ getFullBirthday }}</p>
+          <p>{{ fullBirthday }}</p>
         </div>
       </div>
       <div class="question">
         <div class="question-title">
-          <p>{{ question1 }}</p>
+          <p>-現在、生命保険に加入されていますか？-</p>
         </div>
         <div class="question-answer">
-          <p>{{ getQuestion1Chosen }}</p>
+          <p>{{ question1Choice }}</p>
         </div>
       </div>
       <div class="question">
         <div class="question-title">
-          <p>{{ question2 }}</p>
+          <p>
+            -現在入院中ですか？または、最近3ヶ月以内に医師の診断・審査の結果、入院・手術を勧められたことはありますか？-
+          </p>
         </div>
         <div class="question-answer">
-          <p>{{ getQuestion2Chosen }}</p>
+          <p>{{ question2Choice }}</p>
         </div>
       </div>
       <div class="question">
         <div class="question-title">
-          <p>{{ question3 }}</p>
+          <p>
+            -過去5年以内に、病気やけがで、手術を受けたことまたは継続して7日以上の入院をしたことがありますか？-
+          </p>
         </div>
         <div class="question-answer">
-          <p>{{ getQuestion3Chosen }}</p>
+          <p>{{ question3Choice }}</p>
         </div>
       </div>
       <div class="question">
         <div class="question-title">
-          <p>{{ textTitle }}</p>
+          <p>-ご相談内容-</p>
         </div>
         <div class="question-answer">
-          <p>{{ getTextContent }}</p>
+          <p>{{ text }}</p>
         </div>
       </div>
     </div>
@@ -63,41 +67,23 @@ export default {
     };
   },
   computed: {
-    genderChoice() {
-      return this.$store.getters.getGenderChoice;
-    },
-    getGender() {
+    gender() {
       return this.$store.getters.getGender;
     },
-    birthdayChoice() {
-      return this.$store.getters.getBirthdayChoice;
-    },
-    getFullBirthday() {
+    fullBirthday() {
       return this.$store.getters.getFullBirthday;
     },
-    question1() {
-      return this.$store.getters.getQuestion1;
+    question1Choice() {
+      return this.$store.getters.getQuestion1Choice;
     },
-    getQuestion1Chosen() {
-      return this.$store.getters.getQuestion1Chosen;
+    question2Choice() {
+      return this.$store.getters.getQuestion2Choice;
     },
-    question2() {
-      return this.$store.getters.getQuestion2;
+    question3Choice() {
+      return this.$store.getters.getQuestion3Choice;
     },
-    getQuestion2Chosen() {
-      return this.$store.getters.getQuestion2Chosen;
-    },
-    question3() {
-      return this.$store.getters.getQuestion3;
-    },
-    getQuestion3Chosen() {
-      return this.$store.getters.getQuestion3Chosen;
-    },
-    textTitle() {
-      return this.$store.getters.getTextTitle;
-    },
-    getTextContent() {
-      return this.$store.getters.getTextContent;
+    text() {
+      return this.$store.getters.getText;
     },
   },
   created() {

@@ -3,7 +3,7 @@
     <div class="form-section">
       <div class="question">
         <div class="question-title">
-          <p>{{ genderChoice }}</p>
+          <p>-性別-</p>
         </div>
         <div class="question-answer">
           <input type="radio" id="male" value="男性" v-model="gender" />
@@ -15,7 +15,7 @@
 
       <div class="question">
         <div class="question-title">
-          <p>{{ birthdayChoice }}</p>
+          <p>-生年月日-</p>
         </div>
         <div class="question-answer">
           <select v-model="year" @change="getMaxDate">
@@ -44,15 +44,9 @@ export default {
     };
   },
   computed: {
-    genderChoice() {
-      return this.$store.getters.getGenderChoice;
-    },
-    birthdayChoice() {
-      return this.$store.getters.getBirthdayChoice;
-    },
     gender: {
       get() {
-        return this.$store.state.userInformation.formData.gender;
+        return this.$store.getters.getGender;
       },
       set(value) {
         this.$store.commit('gender', value);
@@ -60,7 +54,7 @@ export default {
     },
     year: {
       get() {
-        return this.$store.state.userInformation.formData.year;
+        return this.$store.getters.getYear;
       },
       set(value) {
         this.$store.commit('year', value);
@@ -68,7 +62,7 @@ export default {
     },
     month: {
       get() {
-        return this.$store.state.userInformation.formData.month;
+        return this.$store.getters.getMonth;
       },
       set(value) {
         this.$store.commit('month', value);
@@ -76,28 +70,22 @@ export default {
     },
     date: {
       get() {
-        return this.$store.state.userInformation.formData.date;
+        return this.$store.getters.getDate;
       },
       set(value) {
         this.$store.commit('date', value);
       },
     },
   },
-
   created() {
     this.$store.commit('pageNumber', this.pageNumber);
     this.$store.commit('title', this.title);
     this.$store.commit('nextPage', this.nextPage);
     this.getMaxDate();
   },
-
   methods: {
     getMaxDate() {
-      this.maxDate = new Date(
-        this.$store.state.userInformation.formData.year,
-        this.$store.state.userInformation.formData.month,
-        0
-      ).getDate();
+      this.maxDate = new Date(this.year, this.month, 0).getDate();
     },
   },
 };

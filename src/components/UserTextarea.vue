@@ -2,9 +2,9 @@
   <div>
     <div class="form-section">
       <div class="question-title">
-        <p>{{ textTitle }}</p>
+        <p>-ご相談内容-</p>
       </div>
-      <textarea v-model="getText"></textarea>
+      <textarea v-model="text"></textarea>
     </div>
   </div>
 </template>
@@ -20,12 +20,9 @@ export default {
     };
   },
   computed: {
-    textTitle() {
-      return this.$store.getters.getTextTitle;
-    },
-    getText: {
+    text: {
       get() {
-        return this.$store.state.userTextarea.formData.text;
+        return this.$store.getters.getText;
       },
       set(value) {
         this.$store.commit('text', value);
